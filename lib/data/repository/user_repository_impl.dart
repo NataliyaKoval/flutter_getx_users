@@ -2,8 +2,8 @@ import 'package:getx_users/data/datasources/rest_api_client.dart';
 import 'package:getx_users/domain/models/users_response.dart';
 import 'package:getx_users/domain/repository/user_repository.dart';
 
-class UserRepositoryImpl implements UserRepository {
-  const UserRepositoryImpl({
+class UserRepositoryImpl extends UserRepository {
+  UserRepositoryImpl({
     required this.restApiClient,
   });
 

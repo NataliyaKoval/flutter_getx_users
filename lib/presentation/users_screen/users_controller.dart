@@ -12,15 +12,27 @@ class UsersController extends GetxController {
 
   int page = 1;
   List<User> users = [];
+  bool isLastPage = false;
+  bool isFutureRunning = false;
 
   void fetchUsers() async {
+    if (isFutureRunning) {
+      return;
+    }
+
+    isFutureRunning = true;
+
     try {
       final UsersResponse response = await _getUsersUseCase.call(page);
-      users = response.data;
-      print(users[0].firstName);
+      page++;
+      isLastPage = page > response.totalPages;
+      users.addAll(response.data);
     } catch (e) {
       print(e);
+    } finally {
+      isFutureRunning = false;
     }
+
     update();
   }
 }

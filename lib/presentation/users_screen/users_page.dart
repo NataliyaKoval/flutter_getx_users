@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_users/presentation/users_screen/user_list_tile.dart';
 import 'package:getx_users/presentation/users_screen/users_controller.dart';
 
 class UsersPage extends StatefulWidget {
@@ -29,18 +30,18 @@ class _UsersPageState extends State<UsersPage> {
         builder: (_) {
           return Scaffold(
             appBar: AppBar(),
-            body: ListView.separated(
-                controller: _scrollController,
-                itemBuilder: (context, index) => SizedBox(
-                      height: 200,
-                      child: Card(
-                        child: Text(controller.users[index].firstName, style: TextStyle(fontSize: 30),),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.separated(
+                  controller: _scrollController,
+                  itemBuilder: (context, index) => UserListTile(
+                        user: controller.users[index],
                       ),
-                    ),
-                separatorBuilder: (context, index) => const SizedBox(
-                      height: 10,
-                    ),
-                itemCount: controller.users.length),
+                  separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
+                      ),
+                  itemCount: controller.users.length),
+            ),
           );
         });
   }

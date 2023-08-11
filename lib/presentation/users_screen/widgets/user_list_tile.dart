@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_users/domain/models/user.dart';
@@ -22,10 +23,12 @@ class UserListTile extends StatelessWidget {
             horizontal: 10,
             vertical: 26,
           ),
-          leading: Image.network(
-            user.avatar,
+          leading: CachedNetworkImage(
+            imageUrl: user.avatar,
             fit: BoxFit.cover,
             width: 60,
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
           ),
           title: Text(
             '${user.firstName} ${user.lastName}',

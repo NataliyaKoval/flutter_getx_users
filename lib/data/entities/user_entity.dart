@@ -35,4 +35,24 @@ class UserEntity implements User {
   @override
   @JsonKey(name: 'avatar')
   final String avatar;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'email': email,
+      'firstName': firstName,
+      'lastName': lastName,
+      'avatar': avatar,
+    };
+  }
+
+  factory UserEntity.fromMap(Map<String, dynamic> map) {
+    return UserEntity(
+      id: map['id'] as int,
+      email: map['email'] as String,
+      firstName: map['firstName'] as String,
+      lastName: map['lastName'] as String,
+      avatar: map['avatar'] as String,
+    );
+  }
 }

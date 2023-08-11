@@ -19,7 +19,7 @@ class _UsersPageState extends State<UsersPage> {
     return GetBuilder<UsersController>(
         init: controller,
         initState: (state) {
-          controller.fetchUsers();
+          controller.getUsers();
         },
         didUpdateWidget: (old, newState) {
           _scrollController.addListener(_scrollListener);

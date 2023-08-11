@@ -9,13 +9,8 @@ void main() async {
   MainBinding mainBinding = MainBinding();
   await mainBinding.dependencies();
   runApp(GetMaterialApp(
-    initialRoute: '/users',
-    getPages: [
-      GetPage(
-        name: '/users',
-        page: () => const UsersPage(),
-        binding: UsersBinding(),
-      ),
-    ],
+    initialRoute: '/',
+    initialBinding: UsersBinding(),
+    home: const UsersPage(),
   ));
 }

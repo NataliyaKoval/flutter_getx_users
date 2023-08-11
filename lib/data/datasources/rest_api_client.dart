@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:getx_users/data/entities/user_detail_response_entity.dart';
 import 'package:getx_users/data/entities/users_response_entity.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -10,4 +11,7 @@ abstract class RestApiClient {
 
   @GET('/users/')
   Future<UsersResponseEntity> fetchUsers(@Query('page') int page);
+
+  @GET('/users/{id}')
+  Future<UserDetailResponseEntity> fetchDetail(@Path('id') int id);
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_users/presentation/users_screen/user_list_tile.dart';
+import 'package:getx_users/presentation/users_screen/widgets/user_list_tile.dart';
 import 'package:getx_users/presentation/users_screen/users_controller.dart';
 
 class UsersPage extends StatefulWidget {

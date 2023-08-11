@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_users/consts/app_strings.dart';
 import 'package:getx_users/presentation/detail_screen/detail_controller.dart';
+import 'package:getx_users/presentation/detail_screen/widgets/info_row.dart';
 
 class DetailPage extends StatelessWidget {
   DetailPage({
@@ -24,7 +26,28 @@ class DetailPage extends StatelessWidget {
           },
           builder: (controller) => controller.isLoading
               ? const Center(child: CircularProgressIndicator())
-              : Text(controller.user.firstName),
+              : Column(
+                  children: [
+                    Image.network(controller.user.avatar, width: 250, fit: BoxFit.fitWidth,),
+                    const SizedBox(height: 20,),
+                    InfoRow(
+                      subtitle: AppStrings.userId,
+                      text: controller.user.id.toString(),
+                    ),
+                    InfoRow(
+                      subtitle: AppStrings.firstName,
+                      text: controller.user.firstName,
+                    ),
+                    InfoRow(
+                      subtitle: AppStrings.lastName,
+                      text: controller.user.lastName,
+                    ),
+                    InfoRow(
+                      subtitle: AppStrings.email,
+                      text: controller.user.email,
+                    ),
+                  ],
+                ),
         ),
       ),
     );

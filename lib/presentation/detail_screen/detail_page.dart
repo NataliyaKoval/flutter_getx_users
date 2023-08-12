@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_users/consts/app_strings.dart';
@@ -28,8 +29,16 @@ class DetailPage extends StatelessWidget {
               ? const Center(child: CircularProgressIndicator())
               : Column(
                   children: [
-                    Image.network(controller.user.avatar, width: 250, fit: BoxFit.fitWidth,),
-                    const SizedBox(height: 20,),
+                    CachedNetworkImage(
+                      imageUrl: controller.user.avatar,
+                      width: 250,
+                      fit: BoxFit.fitWidth,
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     InfoRow(
                       subtitle: AppStrings.userId,
                       text: controller.user.id.toString(),

@@ -7,5 +7,5 @@ abstract class UserRepository {
 
   Future<List<User>> readSavedUsers();
 
-  Future<User> fetchUserDetail(int id);
+  Future<User> getUserDetail(int id);
 }

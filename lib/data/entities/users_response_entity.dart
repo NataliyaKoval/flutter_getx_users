@@ -7,10 +7,10 @@ part 'users_response_entity.g.dart';
 @JsonSerializable()
 class UsersResponseEntity implements UsersResponse {
   const UsersResponseEntity({
-    required this.page,
-    required this.perPage,
-    required this.total,
-    required this.totalPages,
+    this.page,
+    this.perPage,
+    this.total,
+    this.totalPages,
     required this.data,
   });
 
@@ -19,19 +19,19 @@ class UsersResponseEntity implements UsersResponse {
 
   @override
   @JsonKey(name: 'page')
-  final int page;
+  final int? page;
 
   @override
   @JsonKey(name: 'per_page')
-  final int perPage;
+  final int? perPage;
 
   @override
   @JsonKey(name: 'total')
-  final int total;
+  final int? total;
 
   @override
   @JsonKey(name: 'total_pages')
-  final int totalPages;
+  final int? totalPages;
 
   @override
   @JsonKey(name: 'data')

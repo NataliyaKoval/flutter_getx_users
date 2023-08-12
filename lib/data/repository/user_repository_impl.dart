@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:getx_users/data/datasources/local_database.dart';
 import 'package:getx_users/data/datasources/rest_api_client.dart';
 import 'package:getx_users/data/entities/user_detail_response_entity.dart';
@@ -20,8 +19,16 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   Future<UsersResponse> fetchAndSaveUsers(int page) async {
-    UsersResponseEntity response = await restApiClient.fetchUsers(page);
-    localDatabase.saveUsers(response.data);
+    UsersResponseEntity response;
+    bool isConnected = await ConnectionUtils.isConnected();
+    if (isConnected) {
+      response = await restApiClient.fetchUsers(page);
+      localDatabase.saveUsers(response.data);
+    } else {
+      List<UserEntity> users = await localDatabase.readUsers();
+      response = UsersResponseEntity(data: users);
+    }
+
     return response;
   }
 
@@ -39,10 +46,4 @@ class UserRepositoryImpl extends UserRepository {
 
     return user;
   }
-
-  @override
-  Future<List<User>> readSavedUsers() async {
-    return await localDatabase.readUsers();
-  }
-
 }

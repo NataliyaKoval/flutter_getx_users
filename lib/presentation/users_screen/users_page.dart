@@ -19,7 +19,7 @@ class _UsersPageState extends State<UsersPage> {
     return GetBuilder<UsersController>(
         init: controller,
         initState: (state) {
-          controller.getUsers();
+          controller.fetchUsers();
           _scrollController.addListener(_scrollListener);
         },
         dispose: (state) {
@@ -32,14 +32,12 @@ class _UsersPageState extends State<UsersPage> {
               padding: const EdgeInsets.all(8.0),
               child: ListView.separated(
                   controller: _scrollController,
-                  itemBuilder: (context, index) =>
-                      UserListTile(
+                  itemBuilder: (context, index) => UserListTile(
                         user: controller.users[index],
                       ),
-                  separatorBuilder: (context, index) =>
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
+                      ),
                   itemCount: controller.users.length),
             ),
           );
@@ -48,7 +46,7 @@ class _UsersPageState extends State<UsersPage> {
 
   _scrollListener() {
     if (_scrollController.position.extentAfter < 200 &&
-        controller.isLastPage == false && controller.isConnected) {
+        controller.isLastPage == false) {
       controller.fetchUsers();
     }
   }

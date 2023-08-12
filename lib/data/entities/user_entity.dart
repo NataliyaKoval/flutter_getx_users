@@ -1,11 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:getx_users/domain/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_entity.g.dart';
 
 @JsonSerializable()
-class UserEntity implements User {
-  UserEntity({
+class UserEntity extends Equatable implements User {
+  const UserEntity({
     required this.id,
     required this.email,
     required this.firstName,
@@ -55,4 +56,7 @@ class UserEntity implements User {
       avatar: map['avatar'] as String,
     );
   }
+
+  @override
+  List<Object?> get props => [id, email, firstName, lastName, avatar];
 }

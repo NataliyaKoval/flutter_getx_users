@@ -18,14 +18,16 @@ class UsersController extends GetxController {
   List<User> users = [];
   bool isLastPage = false;
   bool isFutureRunning = false;
+  bool isConnected = false;
 
   void getUsers() async {
-    bool isConnected = await ConnectionUtils.isConnected();
+    isConnected = await ConnectionUtils.isConnected();
     if (isConnected) {
       fetchUsers();
     } else {
       readSavedUsers();
     }
+    update();
   }
 
   void fetchUsers() async {

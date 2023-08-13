@@ -16,18 +16,34 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GetBuilder<DetailController>(
-          init: controller,
-          initState: (state) {
-            controller.getDetail(id);
-          },
-          builder: (controller) => controller.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Column(
+    return GetBuilder<DetailController>(
+        init: controller,
+        initState: (state) {
+          controller.getDetail(id);
+        },
+        builder: (controller) {
+          if (controller.isLoading) {
+            return Scaffold(
+              appBar: AppBar(),
+              body: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (controller.isError) {
+            return Scaffold(
+              body: Center(
+                child: Text(AppStrings.errorMessage),
+              ),
+            );
+          } else {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(controller.user.firstName),
+                centerTitle: true,
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
                     CachedNetworkImage(
                       imageUrl: controller.user.avatar,
@@ -57,8 +73,9 @@ class DetailPage extends StatelessWidget {
                     ),
                   ],
                 ),
-        ),
-      ),
-    );
+              ),
+            );
+          }
+        });
   }
 }

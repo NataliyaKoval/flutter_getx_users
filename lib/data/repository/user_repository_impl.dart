@@ -26,7 +26,13 @@ class UserRepositoryImpl extends UserRepository {
       localDatabase.saveUsers(response.data);
     } else {
       List<UserEntity> users = await localDatabase.readUsers();
-      response = UsersResponseEntity(data: users);
+      response = UsersResponseEntity(
+        page: 1,
+        perPage: users.length,
+        total: users.length,
+        totalPages: 1,
+        data: users,
+      );
     }
 
     return response;

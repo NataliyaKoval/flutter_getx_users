@@ -11,15 +11,16 @@ class DetailController extends GetxController {
 
   late User user;
   bool isLoading = false;
+  bool isError = false;
 
   void getDetail(int id) async {
     isLoading = true;
     update();
 
     try {
-      user = await _getDetailUseCase.call(id);
+      user = await _getDetailUseCase(id);
     } catch (e) {
-      print(e);
+      isError = true;
     }
     isLoading = false;
     update();

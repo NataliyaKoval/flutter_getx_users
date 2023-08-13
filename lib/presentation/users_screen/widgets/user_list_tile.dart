@@ -33,10 +33,12 @@ class UserListTile extends StatelessWidget {
           title: Text(
             '${user.firstName} ${user.lastName}',
             style: const TextStyle(fontSize: 28),
+            overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
             user.email,
             style: const TextStyle(fontSize: 24, color: Colors.indigo),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ),

@@ -9,6 +9,6 @@ class GetUsersUseCase extends UseCase<UsersResponse, int> {
 
   @override
   Future<UsersResponse> call(int params) {
-    return _userRepository.fetchUsers(params);
+    return _userRepository.fetchAndSaveUsers(params);
   }
 }

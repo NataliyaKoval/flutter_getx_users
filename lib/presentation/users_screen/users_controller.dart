@@ -1,7 +1,7 @@
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:getx_users/domain/models/user.dart';
 import 'package:getx_users/domain/models/users_response.dart';
-import 'package:getx_users/presentation/users_screen/use_cases/get_users_use_case.dart';
+import 'package:getx_users/domain/use_case/get_users_use_case.dart';
 
 class UsersController extends GetxController {
   UsersController(
@@ -10,27 +10,29 @@ class UsersController extends GetxController {
 
   final GetUsersUseCase _getUsersUseCase;
 
-  int page = 1;
+  int _page = 1;
   List<User> users = [];
-  bool isLastPage = false;
-  bool isFutureRunning = false;
+  bool isLastPage = true;
+  bool isLoading = false;
+  bool isError = false;
 
   void fetchUsers() async {
-    if (isFutureRunning) {
+    if (isLoading) {
       return;
     }
 
-    isFutureRunning = true;
+    isLoading = true;
+    update();
 
     try {
-      final UsersResponse response = await _getUsersUseCase.call(page);
-      page++;
-      isLastPage = page > response.totalPages;
+      final UsersResponse response = await _getUsersUseCase(_page);
+      _page++;
+      isLastPage = _page > response.totalPages;
       users.addAll(response.data);
     } catch (e) {
-      print(e);
+      isError = true;
     } finally {
-      isFutureRunning = false;
+      isLoading = false;
     }
 
     update();

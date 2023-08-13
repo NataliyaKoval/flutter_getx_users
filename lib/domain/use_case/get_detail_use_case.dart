@@ -9,6 +9,6 @@ class GetDetailUseCase extends UseCase<User, int> {
 
   @override
   Future<User> call(int params) {
-    return _userRepository.fetchUserDetail(params);
+    return _userRepository.getUserDetail(params);
   }
 }
